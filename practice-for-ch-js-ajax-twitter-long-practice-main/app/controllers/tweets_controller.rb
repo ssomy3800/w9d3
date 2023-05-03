@@ -35,6 +35,11 @@ class TweetsController < ApplicationController
     end
   end
 
+  def index
+    @tweets = current_user.page_of_tweets(type: params[:type], offset: params[:offset] , limit: 10)
+    render :index
+  end
+
   private
   
   def tweet_params

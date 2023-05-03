@@ -4,11 +4,11 @@ async function customFetch(url, options = {}) {
   options.headers = {
     // Your code here
     "Content-Type": "application/json",
-    "Accept": "application/json",
-    "X-CSRF-Token": csrfToken
+    Accept: "application/json",
+    "X-CSRF-Token": csrfToken,
   };
 
-//   return await fetch(url, options);
+  //   return await fetch(url, options);
   let response = await fetch(url, options);
   if (response.ok) {
     return response.json();
@@ -17,18 +17,31 @@ async function customFetch(url, options = {}) {
   }
 }
 
-export function followUser(id){
+export function followUser(id) {
   let url = `/users/${id}/follow`;
-  let options = {method: "POST"};
+  let options = { method: "POST" };
   return customFetch(url, options);
 }
 
-export function unfollowUser(id){
+export function unfollowUser(id) {
   let url = `/users/${id}/follow`;
-  let options = {method: "DELETE"};
+  let options = { method: "DELETE" };
   return customFetch(url, options);
-
 }
 
+export async function fetchTweets(options = {}) {
+  let queryParams = new URLSearchParams(options);
+  let url = "/tweets?" + queryParams.toString();
+  // console.log(url);
+  // let secondOptions = {
+  //   method: "get",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //     "X-CSRF-Token": csrfToken,
+  //   },
+  // };
+  return await customFetch(url);
+}
 
 export const foo = "bar";

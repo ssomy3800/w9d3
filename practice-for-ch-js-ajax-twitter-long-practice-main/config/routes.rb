@@ -3,11 +3,12 @@ Rails.application.routes.draw do
 
   get "feed", to: "tweets#feed", as: :feed
   resource :session, only: [:create, :destroy, :new]
-  resources :tweets, only: [:create]
+  resources :tweets, only: [:create, :index]
   resources :users, only: [:create, :new, :show] do
     get "search", on: :collection
     resource :follow, only: [:create, :destroy]
   end
+
 
   root to: redirect("/feed")
 end
